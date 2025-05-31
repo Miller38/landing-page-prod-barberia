@@ -86,7 +86,7 @@ nav {
 .btn:hover {
     background: #ff6b81;
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -130,119 +130,73 @@ section {
     padding: 0 20px;
 }
 
-/* Hero Slider */
-.hero {
+.carousel {
+    padding: 2rem;
+    background: #f9f9f9;
+    text-align: center;
     position: relative;
-    height: 70vh;
     overflow: hidden;
+}
+
+.gallery-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.carousel-track {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: transform 0.5s ease;
 }
 
-.slider {
-    position: absolute;
-    inset: 80px 200px 80px 80px;
-    background: #ccc;
-    border-radius: 20px;
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
 }
 
-.slider .slides {
+.carousel-item img {
+    width: auto;
+    max-width: 400%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+
+.carousel-item p {
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 240px;
-    height: 320px;
-    background: var(--img);  
-    background-size: cover;
-    background-position: center; 
-    transition: 0.5s;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-
-.slider .slides:nth-child(1),
-.slider .slides:nth-child(2) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: translateY(0);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    background-size: cover;
-}
-
-.slider .slides:nth-child(3) {
-    left: calc(50% + 240px);
-    background-size: cover;
-}
-
-.buttons {
-    position: absolute;
-    bottom: 15px;
-    display: flex;
-    gap: 20px;
-}
-
-.buttons span {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    background: #111;
+    font-size: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
+    z-index: 2;
 }
 
-.buttons span::before {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-top: 4px solid #fff;
-    border-left: 4px solid #fff;
-    transform: rotate(315deg) translate(2px,2px);
+.prev {
+    left: 0;
 }
 
-.buttons span:nth-child(2)::before {
-    transform: rotate(135deg) translate(2px,2px);
-} 
-
-.buttons span:active {
-    opacity: 0.5;
-}
-
-.content {
-    position: relative;
-    padding: 40px;
-    max-width: 600px;
-    transition: 0.25s;
-    transition-delay: 0s;
-    transform: translateY(40px);
-    z-index: 10000;
-    opacity: 0;
-}
-
-.content h2 {
-    font-size: 4em;
-    color: #fff;
-}
-
-.content p {
-    color: #fff;
-}
-
-.slider .slides:nth-child(1) .content,
-.slider .slides:nth-child(2) .content {
-    opacity: 1;
-    transform: translateY(0px);
-    transition-delay: 0.5s;
+.next {
+    right: 0;
 }
 
 /* Features Section */
@@ -266,7 +220,7 @@ section {
 
 .feature-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .feature-icon {
@@ -295,7 +249,7 @@ section {
 .about-image img {
     width: 60%;
     border-radius: 10px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .about-text h3 {
@@ -324,7 +278,7 @@ section {
     background: #f9f9f9;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s;
 }
 
@@ -386,7 +340,7 @@ section {
     background: #ff4757;
 }
 
-.footer-section p, 
+.footer-section p,
 .footer-section a {
     color: #ccc;
     margin-bottom: 0.8rem;
@@ -430,7 +384,7 @@ section {
         height: 100px;
         top: initial;
         bottom: -170px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
     }
 
     .slider .slides:nth-child(1),
@@ -467,3 +421,97 @@ section {
         display: none;
     }
 }
+
+/* Variables CSS para modo claro/oscuro */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #2c3e50;
+    --secondary-color: #ff4757;
+    --card-bg: #f9f9f9;
+    --header-bg: rgba(44, 62, 80, 0.95);
+    --footer-bg: #2c3e50;
+    --slider-bg: #ccc;
+}
+
+/* Modo oscuro */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --primary-color: #1e88e5;
+    --secondary-color: #ff6b81;
+    --card-bg: #1e1e1e;
+    --header-bg: rgba(30, 30, 30, 0.95);
+    --footer-bg: #121212;
+    --slider-bg: #333;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    background-color: var(--header-bg);
+}
+
+.feature-card,
+.service-card {
+    background-color: var(--card-bg);
+}
+
+footer {
+    background-color: var(--footer-bg);
+}
+
+.slider {
+    background: var(--slider-bg);
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- ESTILOS PARA EL BOTÓN FLOTANTE DE WHATSAPP --- */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    /* Color oficial de WhatsApp */
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    /* Tamaño del ícono */
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+    display: flex;
+    /* Para centrar el ícono fácilmente */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    /* Quita el subrayado del enlace */
+}
+
+.whatsapp-float:hover {
+    background-color: #128C7E;
+    /* Un verde un poco más oscuro al pasar el mouse */
+    color: #FFF;
+}
+
+/* --- FIN DE ESTILOS PARA EL BOTÓN FLOTANTE DE WHATSAPP --- */

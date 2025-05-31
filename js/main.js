@@ -1,79 +1,97 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Configuración del slider
-    const slides = document.querySelectorAll('.slides');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const dots = document.querySelectorAll('.dot');
-    let currentIndex = 0;
-    let slideInterval;
-    const totalSlides = slides.length;
-    const slideDuration = 5000; // 5 segundos por slide
+ // galeria 
+        let currentIndex = 0;
 
-    // Función para mostrar un slide específico
-    function showSlide(index) {
-        // Asegurarse de que el índice esté dentro del rango
-        index = (index + totalSlides) % totalSlides;
-        
-        // Ocultar todos los slides y mostrar solo el actual
-        slides.forEach((slide, i) => {
-            slide.style.opacity = i === index ? '1' : '0';
-            slide.classList.toggle('active', i === index);
-        });
-        
-        // Actualizar los indicadores de puntos
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-        
-        currentIndex = index;
-    }
+function moveSlide(direction) {
+  const track = document.querySelector(".carousel-track");
+  const items = document.querySelectorAll(".carousel-item");
+  const total = items.length;
 
-    // Función para avanzar al siguiente slide
-    function nextSlide() {
-        showSlide(currentIndex + 1);
-        resetSlideTimer();
-    }
+  currentIndex += direction;
+  if (currentIndex < 0) currentIndex = total - 1;
+  if (currentIndex >= total) currentIndex = 0;
 
-    // Función para retroceder al slide anterior
-    function prevSlide() {
-        showSlide(currentIndex - 1);
-        resetSlideTimer();
-    }
+  track.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+        // Toggle para modo oscuro/claro
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
 
-    // Reiniciar el temporizador del auto-play
-    function resetSlideTimer() {
-        clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, slideDuration);
-    }
+        // Verificar preferencia del sistema
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Inicializar el slider
-    function initSlider() {
-        // Mostrar el primer slide
-        showSlide(0);
-        
-        // Configurar el auto-play
-        slideInterval = setInterval(nextSlide, slideDuration);
-        
-        // Eventos para los botones de navegación
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-        
-        // Eventos para los puntos indicadores
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showSlide(index);
-                resetSlideTimer();
-            });
-        });
-        
-        // Pausar el auto-play cuando el mouse está sobre el slider
-        const slider = document.querySelector('.slider');
-        if (slider) {
-            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            slider.addEventListener('mouseleave', () => resetSlideTimer());
+        // Cargar tema guardado o usar preferencia del sistema
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!localStorage.getItem('theme') && prefersDarkScheme.matches)) {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
-    }
 
-    // Iniciar el slider
-    initSlider();
-});
+        // Alternar tema
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            themeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Slider functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.slides');
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+            const dots = document.querySelectorAll('.dot');
+            let currentIndex = 0;
+            let slideInterval;
+            const totalSlides = slides.length;
+            const slideDuration = 5000; // 5 segundos
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                currentIndex = index;
+            }
+
+            function nextSlide() {
+                showSlide((currentIndex + 1) % totalSlides);
+                resetSlideTimer();
+            }
+
+            function prevSlide() {
+                showSlide((currentIndex - 1 + totalSlides) % totalSlides);
+                resetSlideTimer();
+            }
+
+            function resetSlideTimer() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, slideDuration);
+            }
+
+            // Initialize slider
+            if (slides.length > 0) { // Asegurarse que hay slides antes de inicializar
+                showSlide(0);
+                slideInterval = setInterval(nextSlide, slideDuration);
+            }
+
+
+            // Event listeners
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    resetSlideTimer();
+                });
+            });
+
+            // Pause on hover
+            const slider = document.querySelector('.slider');
+            if (slider) {
+                slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                slider.addEventListener('mouseleave', () => resetSlideTimer());
+            }
+        });
